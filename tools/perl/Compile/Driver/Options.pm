@@ -11,6 +11,7 @@ my %Flag_for_option = qw
 
 my %Spec_for_option = qw
 (
+	6 68k
 	P ppc
 	8 x86
 	
@@ -19,6 +20,7 @@ my %Spec_for_option = qw
 	
 	R opt
 	X sym
+	r r68
 );
 
 my %Flags;

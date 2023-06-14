@@ -25,6 +25,7 @@ my %category_of_spec = qw
 	ppc  arch
 	x86  arch
 	arm  arch
+	68k  arch
 	
 	m32  width
 	m64  width
@@ -32,6 +33,7 @@ my %category_of_spec = qw
 	sym  build
 	dbg  build
 	opt  build
+	r68  build
 );
 
 sub hosttype
@@ -183,9 +185,17 @@ sub arch_option
 	
 	my $arch = $self->{arch} or return;
 	
-	$arch =~ s/^ x86 $/i386/x;
+	unless ($self->is_retro68)
+	{
+		$arch =~ s/^ x86 $/i386/x;
+		
+		return (-arch => $arch);
+	}
 	
-	return (-arch => $arch);
+	$arch =~ s/^ 68k $/m68k/x;
+	$arch =~ s/^ ppc $/powerpc/x;
+	
+	return $arch;
 }
 
 sub is_carbon
@@ -193,6 +203,13 @@ sub is_carbon
 	my $self = shift;
 	
 	return ($self->{ mac_api } || "") eq 'carbon';
+}
+
+sub is_retro68
+{
+	my $self = shift;
+	
+	return $self->{ build } eq "r68";
 }
 
 sub is_apple_gcc
@@ -207,6 +224,11 @@ sub debugging
 	my $self = shift;
 	
 	return $self->{ build } ne "opt";
+}
+
+sub is_mac
+{
+	return $is_mac;
 }
 
 sub symbolics

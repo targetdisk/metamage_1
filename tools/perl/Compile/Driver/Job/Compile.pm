@@ -84,7 +84,13 @@ sub up_to_date
 
 sub tool_name
 {
-	return "cc";
+	my $self = shift;
+	
+	my $module = $self->{FROM};
+	
+	my $conf = $module->{CONF};
+	
+	return $conf->is_retro68 ? $conf->arch_option . "-apple-macos-gcc" : "cc";
 }
 
 sub command
@@ -135,7 +141,12 @@ sub command
 	
 	my @i = map { "-I$_" } @{ $module->all_search_dirs };
 	
-	return $self->tool_name, '-c', -o => $dest, @arch, @o, @f, @w, @d, @i;
+	if ($conf->is_mac)
+	{
+		return $self->tool_name, '-c', -o => $dest, @arch, @o, @f, @w, @d, @i;
+	}
+	
+	return $self->tool_name, '-c', -o => $dest, @o, @f, @w, @d, @i;
 }
 
 1;

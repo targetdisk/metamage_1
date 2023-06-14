@@ -34,7 +34,13 @@ sub input_files
 
 sub tool_name
 {
-	return "ar";
+	my $self = shift;
+	
+	my $module = $self->{FROM};
+	
+	my $conf = $module->{CONF};
+	
+	return $conf->is_retro68 ? $conf->arch_option . "-apple-macos-ar" : "ar";
 }
 
 sub command
