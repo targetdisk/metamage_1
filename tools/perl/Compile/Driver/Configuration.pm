@@ -220,6 +220,13 @@ sub is_retro68
 	return $self->{ build } eq "r68";
 }
 
+sub retro68_cc_name
+{
+	my $self = shift;
+	
+	return $self->arch_option . "-apple-macos-gcc";
+}
+
 sub is_apple_gcc
 {
 	my $self = shift;

@@ -90,7 +90,7 @@ sub tool_name
 	
 	my $conf = $module->{CONF};
 	
-	return $conf->is_retro68 ? $conf->arch_option . "-apple-macos-gcc" : "cc";
+	return $conf->is_retro68 ? $conf->retro68_cc_name : "cc";
 }
 
 sub command

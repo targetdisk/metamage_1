@@ -2,6 +2,9 @@ package Compile::Driver::Module;
 
 use Compile::Driver::Files;
 use Compile::Driver::InputFile::SourceList;
+use Cwd qw(realpath);
+use File::Basename qw(dirname);
+use File::Which;
 
 use warnings FATAL => 'all';
 use strict;
@@ -413,13 +416,16 @@ sub all_search_dirs
 	
 	if ( $self->{CONF}->is_retro68 )
 	{
-		if (not exists $ENV{SDK_DIR})
-		{
-			die 'Please define "SDK_DIR" environment variable to'
-			. 'point an Apple "Interfaces&Libraries" dir!';
-		}
-		
-		push @search_dirs, $ENV{SDK_DIR} . '/Interfaces/CIncludes';
+		my $r68_toolchain_dir = realpath(
+			dirname( which $self->{CONF}->retro68_cc_name )
+			. '/..'
+		);
+		push @search_dirs, $r68_toolchain_dir . '/include';
+		push @search_dirs, $r68_toolchain_dir . '/' . $self->{CONF}->arch_option
+		                                      . '-apple-macos/include'
+		;
+		push @search_dirs, $r68_toolchain_dir . '/universal/CIncludes';
+		push @search_dirs, $r68_toolchain_dir . '/universal';
 	}
 	
 	return $self->{MEMO}{DIRS} = \@search_dirs;
