@@ -73,7 +73,15 @@ sub new
 		}
 	}
 	
-	if ( $is_mac )
+	if ( $self{ build } eq "r68" )
+	{
+		$self{ mac_runtime } = 'cfm';
+		
+		$self{ blue } = 'blue';
+		
+		$self{ mac } = 'mac';
+	}
+	elsif ( $is_mac )
 	{
 		$self{ arch } ||= $osx_arch;
 		
