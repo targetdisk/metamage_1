@@ -411,6 +411,17 @@ sub all_search_dirs
 		push @search_dirs, @dirs;
 	}
 	
+	if ( $self->{CONF}->is_retro68 )
+	{
+		if (not exists $ENV{SDK_DIR})
+		{
+			die 'Please define "SDK_DIR" environment variable to'
+			. 'point an Apple "Interfaces&Libraries" dir!';
+		}
+		
+		push @search_dirs, $ENV{SDK_DIR} . '/Interfaces/CIncludes';
+	}
+	
 	return $self->{MEMO}{DIRS} = \@search_dirs;
 }
 
