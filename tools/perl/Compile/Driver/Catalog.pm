@@ -1,7 +1,5 @@
 package Compile::Driver::Catalog;
 
-use FindBin '$RealBin';
-
 use Compile::Driver::Files;
 use Compile::Driver::InputFile::Catalog;
 use Compile::Driver::InputFile::Description;
@@ -20,8 +18,11 @@ use strict;
 
 my $subpath = "var/cache/compile-driver";
 
-# Assume we're called from the repo's top level
-my $File = "$RealBin/$subpath/catalog";
+my $gitroot = `git rev-parse --show-toplevel`;
+
+chomp $gitroot;
+
+my $File = "$gitroot/$subpath/catalog";
 
 my %Catalog;
 
@@ -50,7 +51,7 @@ sub add_project_description
 	
 	my $data = read_description_file( $path );
 	
-	my $prefix = $RealBin . "/";
+	my $prefix = $gitroot . "/";
 	
 	if ( substr( $path, 0, length $prefix ) eq $prefix )
 	{
@@ -120,7 +121,7 @@ sub scan_for_project_descriptions
 
 sub create_catalog_file
 {
-	my $root = $RealBin;
+	my $root = $gitroot;
 	
 	scan_for_project_descriptions( $root );
 	
@@ -162,7 +163,7 @@ sub find_project
 		
 		if ( $path !~ m{^ / }x )
 		{
-			$path = "$RealBin/$path";
+			$path = "$gitroot/$path";
 		}
 		
 		$entry->{DATA} = read_description_file( $path );
