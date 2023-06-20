@@ -151,7 +151,7 @@ sub get_module
 	
 	if ( !$desc )
 	{
-		if ( $optional )
+		if ( $optional or Compile::Driver::Options::stupid() )
 		{
 			$desc = { NAME => $name, MEMO => { PREREQS => [] } };
 		}

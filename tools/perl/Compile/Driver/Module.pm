@@ -2,6 +2,7 @@ package Compile::Driver::Module;
 
 use Compile::Driver::Files;
 use Compile::Driver::InputFile::SourceList;
+use Compile::Driver::Options;
 
 use warnings FATAL => 'all';
 use strict;
@@ -277,7 +278,10 @@ sub sources_from_list
 	{
 		my $path = "$dir/$subpath";
 		
-		die "Can't find $subpath\n"  if !-f $path;
+		unless ( Compile::Driver::Options::stupid() )
+		{
+			die "Can't find $subpath\n"  if !-f $path;
+		}
 		
 		$subpath = $path;
 	}

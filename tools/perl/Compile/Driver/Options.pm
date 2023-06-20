@@ -7,6 +7,7 @@ my %Flag_for_option = qw
 (
 	v verbose
 	i install
+	S stupid
 );
 
 my %Spec_for_option = qw
@@ -24,6 +25,11 @@ my %Spec_for_option = qw
 my %Flags;
 my @Specs;
 my $N_jobs;
+
+sub stupid
+{
+	return $Flags{ stupid };
+}
 
 sub verbose
 {
