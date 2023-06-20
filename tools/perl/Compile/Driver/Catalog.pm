@@ -37,6 +37,11 @@ else
 }
 
 
+sub catalog
+{
+	return \%Catalog;
+}
+
 sub add_project_description
 {
 	my ( $dir, $path ) = @_;
