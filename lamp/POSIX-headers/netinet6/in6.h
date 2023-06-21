@@ -65,6 +65,10 @@
 #error "do not include netinet6/in6.h directly, include netinet/in.h.  see RFC2553"
 #endif
 
+#ifdef __GNUC__
+#include <net/types.h>
+#endif
+
 #ifndef _NETINET6_IN6_H_
 #define _NETINET6_IN6_H_
 

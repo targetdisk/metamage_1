@@ -64,6 +64,9 @@
 #include <sys/param.h>
 #include <sys/types.h>
 #include <sys/cdefs.h>
+#ifdef __GNUC__
+#include <net/types.h>
+#endif
 
 __BEGIN_DECLS
 in_addr_t	 inet_addr(const char *);

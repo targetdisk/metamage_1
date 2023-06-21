@@ -41,6 +41,9 @@
 #define	_NETINET_IN_H_
 
 #include <sys/types.h>
+#ifdef __GNUC__
+#include <net/types.h>
+#endif
 
 /*
  * Protocols
