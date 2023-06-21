@@ -103,9 +103,13 @@ sub new
 		$self{ mac_api } = 'carbon';
 		
 		$self{ mac } = 'mac';
+		
+		$self{ unix } = "unix";
 	}
-	
-	$self{ unix } = "unix";
+	else
+	{
+		$self{ unix } = "unix";
+	}
 	
 	$self{ build } = $build  if !exists $self{ build };
 	
