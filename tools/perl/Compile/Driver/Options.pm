@@ -20,6 +20,7 @@ my %Spec_for_option = qw
 	
 	R opt
 	X sym
+	
 	r r68
 );
 

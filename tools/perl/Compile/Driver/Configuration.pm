@@ -33,7 +33,8 @@ my %category_of_spec = qw
 	sym  build
 	dbg  build
 	opt  build
-	r68  build
+
+	r68  toolchain
 );
 
 sub hosttype
@@ -73,7 +74,7 @@ sub new
 		}
 	}
 	
-	if ( $self{ build } eq "r68" )
+	if ( exists $self{ toolchain } and $self{ toolchain } eq "r68" )
 	{
 		$self{ mac_runtime } = 'cfm';
 		
@@ -118,6 +119,7 @@ sub platform_mask
 	my %platform = %$self;
 	
 	delete $platform{ build };
+	delete $platform{ toolchain };
 	
 	return Compile::Driver::Platform::mask_for_values( values %platform );
 }
@@ -217,7 +219,7 @@ sub is_retro68
 {
 	my $self = shift;
 	
-	return $self->{ build } eq "r68";
+	return $self->{ toolchain } eq "r68";
 }
 
 sub retro68_cc_name
