@@ -159,6 +159,12 @@ ams-vnc: ams-vnc-build
 	@chmod +x var/demo/interact
 	$(RUN_AMS)
 
+ams-sdl-build: $(AMS_REPOS)
+	./build.pl -i $(AMS_TOOLS) interact-sdl
+
+ams-sdl: ams-sdl-build
+	EXHIBIT_INTERACT=interact-sdl $(RUN_AMS)
+
 ams-x11-build: $(AMS_REPOS)
 	./build.pl -i $(AMS_TOOLS) interact-x11
 
